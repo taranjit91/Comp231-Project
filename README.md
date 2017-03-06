@@ -1,5 +1,5 @@
-# COMP308-W2017-Lesson6A
+# COMP231 - Project
 
-## Welcome to Lesson 6 - Authentication with passport
+## Welcome to CentEngage - The online job portal for centennials
 
-please use **`npm install`** to install project dependencies
+
