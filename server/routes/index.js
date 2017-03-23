@@ -50,6 +50,13 @@ router.get('/register', (req, res, next) => {
   });
 });
 
+/* GET home page. */
+router.get('/postJob', (req, res, next) => {
+  let currentDate = new Date();
+  res.render('postJob', { 
+    title: 'Sugn Up'
+  });
+});
 
 
 module.exports = router;

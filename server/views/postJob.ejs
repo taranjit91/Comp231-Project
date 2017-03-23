@@ -1,0 +1,68 @@
+
+<html>
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" Content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+<link rel='stylesheet' href='/Scripts/lib/bootstrap/dist/css/bootstrap.min.css' />
+<link rel='stylesheet' href='/Scripts/lib/bootstrap/dist/css/bootstrap-theme.css' />
+<link rel='stylesheet' href='/Content/style.css' />
+
+ 
+</head>
+<body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<div class="container">
+	<div class="Form">
+		<form id="postjob"class="signup" action="" method="post">
+                <div class="form-group">
+				Job Title:
+                  <input type="text" class="form-control" placeholder="Job Title" name="jobTitle">
+                </div>
+                <div class="form-group">
+				Company:
+                  <input type="text" class="form-control" placeholder="Company Name" name="companyName">
+                </div>
+                <div class="form-group">
+				Location:
+                  <input type="text" class="form-control" placeholder="Job Location" name="jobLocation">
+                </div>
+				<div class="form-group">
+				Expiry Date:
+                  <input type="date" class="form-control"  name="jobExpiry">
+                </div>
+                <div class="form-group">
+				Type:
+                  <input type="radio" class="form-control"  name="jobType" value="FullTime">Full Time
+				  <input type="radio" class="form-control"  name="jobType" value="PartTime">Part Time
+                </div>
+                <div class="form-group">
+				Job Description: <br>
+                  <textarea form="postjob" rows="5" class="form-control" placeholder="Job Description" name="jobDescription">
+				  </textarea>
+                </div>
+				<div class="form-group">
+				Job Requirements: <br>
+                  <textarea form="postjob" rows="5" class="form-control" placeholder="Job Requirements" name="jobRequirements">
+				  </textarea>	
+				</div>
+				<div class="form-group">
+				Application Instructions:<br>
+                  <textarea form="postjob" rows="5" class="form-control" placeholder="Application Instructions" name="applicationInstructions">
+				  </textarea>		
+				</div>
+                <div class="form-group">
+                  <input type="submit" class="btn btn-success btn-block"  value="SUBMIT">
+                </div>
+              </form>
+	
+	</div>
+    
+</div>
+	
+<Script src="/Scripts/lib/jquery/dist/jquery.min.js"></Script>
+<Script src="/Scripts/lib/jquery/dist/jquery.js"></Script>
+<Script src="/Scripts/lib/bootstrap/dist/js/bootstrap.min.js"></Script>
+<Script src="/Scripts/app.js"></Script>
+</body>
+</html>
