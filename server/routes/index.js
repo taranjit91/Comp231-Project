@@ -35,9 +35,17 @@ router.get('/search', (req, res, next) => {
 });
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/login', (req, res, next) => {
   let currentDate = new Date();
-  res.render('home', { 
+  res.render('login', { 
+    title: 'Edit Profile'
+  });
+});
+
+/* GET home page. */
+router.get('/register', (req, res, next) => {
+  let currentDate = new Date();
+  res.render('register', { 
     title: 'Sugn Up'
   });
 });
