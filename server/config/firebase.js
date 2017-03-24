@@ -1,33 +1,32 @@
 var firebase = require('firebase');
 var config = {
-   apiKey: "AIzaSyCxWVz5cArT737pxeIHaZxeO246muY_d3c",
+ apiKey: "AIzaSyCxWVz5cArT737pxeIHaZxeO246muY_d3c",
     authDomain: "comp231-centage.firebaseapp.com",
     databaseURL: "https://comp231-centage.firebaseio.com",
     storageBucket: "comp231-centage.appspot.com",
-    messagingSenderId: "809164555117"   
+    messagingSenderId: "809164555117"  
   };
   
   firebase.initializeApp(config);
-  console.log('running client'+new Date()/1);
-  signinUser('parmar.taran@gmail.com','test123');
+  //console.log('running client'+new Date()/1);
+  //signinUser('parmar.taran@gmail.com','test123');
 
  // create user 
-function registerUser(email, password){
+exports.registerUser =function (firstName,lastName,email, password){
 firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(function(user) {
       var user = firebase.auth().currentUser;
-      addUserInfo(user.uid,'Taranjit','Kaur','employer');
-    }
-    , function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-});
+addUserInfo(user.uid,firstName,lastName,email);
+
+
+    }).catch(function(error) {
+
+    });
 }
  
 
 // login 
-function signinUser(email, password){
+exports.signinUser = function(email, password){
 var userInfo =firebase.auth().signInWithEmailAndPassword(email, 
     password).then(function(user) {
     var user = firebase.auth().currentUser;
@@ -37,28 +36,40 @@ var userInfo =firebase.auth().signInWithEmailAndPassword(email,
     //addUserInfo(uid,'firstName'+'','tommm ','member');
     //editUserInfo(uid,'firstName'+'','lastName','member');
    // createJobPosting(uid,'Business Analyst Internship','Alpha One','940 Progress Ave','Newly Graduates','internship','scarborough','55000-75000','IT, Software Developer');
-searchPostings();
+
   }, function(error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
+    console.log("Authentication failed");
 });
 }
+
+//signout
+firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+}, function(error) {
+  // An error happened.
+});
+
 // adding user information
-function addUserInfo(uid,firstName, lastName,userRole)
+function addUserInfo(uid,firstName, lastName,email)
 {
+
 var userInfoRef = firebase.database().ref("users/personal/");
 userInfoRef.child(uid).set({
       firstname: firstName,
       lastname: lastName,
-      role:userRole
-   }), function(error) {
-  if (error) {
-    console.log("Data could not be saved." + error);
-  } else {
-    console.log("Data saved successfully.");
-  };
-   }
+      email:email
+   })
+   .then(function () {
+     console.log("Data added Successfully and properties updated");
+
+   })
+   .catch(function(error) {
+console.log("Data addition error");
+
+   });
 }
 
 // update existing user information
@@ -314,3 +325,5 @@ playersRef.set({
       age: 20
    }
 });*/
+
+module.exports = this;
