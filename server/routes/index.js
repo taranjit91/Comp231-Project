@@ -11,12 +11,7 @@ router.get('/search', (req, res, next) => {
 });
 
 
-/* GET postJob page. */
-router.get('/postJob', (req, res, next) => {
-  res.render('postJob', { 
-    title: 'Sugn Up'
-  });
-});
+
 
 
 module.exports = router;

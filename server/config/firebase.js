@@ -23,7 +23,7 @@ let config = {
 
 let firebaseDB = admin.database();
 module.exports.firebaseDatabase = admin.database();
-module.exports.jobs = firebaseDB.ref("jobs");
+module.exports.jobs = firebaseDB.ref("jobs/postings");
 module.exports.employers = firebaseDB.ref("users/employers");
 module.exports.members = firebaseDB.ref("users/personal");
 

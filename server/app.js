@@ -12,6 +12,7 @@ let bodyParser = require('body-parser');
 let index = require('./routes/index'); // top level routes
 let users = require('./routes/users');
 let member = require('./routes/members');
+let jobs = require('./routes/jobs');
 
 let app = express();
 
@@ -32,7 +33,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use('/', index);
 app.use('/users',users);
 app.use('/member',member);
-
+app.use('/jobs',jobs);
 
 
 

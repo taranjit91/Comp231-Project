@@ -1,4 +1,3 @@
-
 <html>
 <head>
 <meta charset="utf-8">
@@ -23,34 +22,35 @@
 				Company:
                   <input type="text" class="form-control" placeholder="Company Name" name="companyName">
                 </div>
+				<div class="form-group">
+				Company Address:
+                  <input type="text" class="form-control" placeholder="Company Address" name="companyAddress">
+                </div>
                 <div class="form-group">
-				Location:
+				Job Location:
                   <input type="text" class="form-control" placeholder="Job Location" name="jobLocation">
                 </div>
 				<div class="form-group">
-				Expiry Date:
-                  <input type="date" class="form-control"  name="jobExpiry">
+				Salary:
+                  <input type="text" class="form-control" placeholder="Salary" name="jobSalary">
                 </div>
-                <div class="form-group">
+
+				<div class="form-group">
+				Tags:
+                  <input type="text" class="form-control" placeholder="Tags" name="tags">
+                </div>
+
+       <div class="form-group">
 				Type:
-                  <input type="radio" class="form-control"  name="jobType" value="FullTime">Full Time
-				  <input type="radio" class="form-control"  name="jobType" value="PartTime">Part Time
-                </div>
-                <div class="form-group">
+                  <input type="radio"   name="jobType" value="FullTime">Full Time
+				          <input type="radio"   name="jobType" value="PartTime">Part Time
+        </div>
+        <div class="form-group">
 				Job Description: <br>
-                  <textarea form="postjob" rows="5" class="form-control" placeholder="Job Description" name="jobDescription">
+                  <textarea form="postjob" rows="2" class="form-control" placeholder="Job Description" name="jobDescription">
 				  </textarea>
                 </div>
-				<div class="form-group">
-				Job Requirements: <br>
-                  <textarea form="postjob" rows="5" class="form-control" placeholder="Job Requirements" name="jobRequirements">
-				  </textarea>	
-				</div>
-				<div class="form-group">
-				Application Instructions:<br>
-                  <textarea form="postjob" rows="5" class="form-control" placeholder="Application Instructions" name="applicationInstructions">
-				  </textarea>		
-				</div>
+				
                 <div class="form-group">
                   <input type="submit" class="btn btn-success btn-block"  value="SUBMIT">
                 </div>
