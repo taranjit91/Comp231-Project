@@ -10,7 +10,8 @@ let bodyParser = require('body-parser');
 
 // define routers
 let index = require('./routes/index'); // top level routes
-
+let users = require('./routes/users');
+let member = require('./routes/members');
 
 let app = express();
 
@@ -29,35 +30,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // route redirects
 app.use('/', index);
-
-/*
-//Passport User Configuration
-let UserModel = require('./models/users')
-let User = UserModel.User; //'User' from the export statement in the models/users.js
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-*/
-
-/*
-// Handle 404 Errors
-  app.use(function(req, res) {
-      res.status(400);
-     res.render('errors/404',{
-      title: '404: File Not Found'
-    });
-  });
-
-  // Handle 500 Errors
-  app.use(function(error, req, res, next) {
-      res.status(500);
-      res.render('errors/500', {
-        title:'500: Internal Server Error',
-        error: error
-      });
-  });
-
-*/
+app.use('/users',users);
+app.use('/member',member);
 
 
 
