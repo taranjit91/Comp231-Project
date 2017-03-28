@@ -6,9 +6,15 @@ let firebaseAuth = firebase.auth;
 
 
 module.exports.displayJobPostPage = (req,res,next) => {
-     return res.render('jobs/postJob', { 
-    title: 'Post Job'
-  });
+     if (firebaseAuth.user != null){
+     return   res.render('postJob', { 
+          title: 'Post Job'
+        });
+    }
+    else{
+      return res.redirect ("../users/login")
+    }
+     
 }
 
 module.exports.ProcessPostJob = (req,res,next) => {
@@ -43,30 +49,39 @@ module.exports.ProcessPostJob = (req,res,next) => {
 }
 
 module.exports.displayJobs = (req,res,next) => {
-      
+  //hardcoded login for testing
+  //firebaseAuth.signInWithEmailAndPassword("mchua@cencol.ca", "test123")    
   var user = firebaseAuth.currentUser;
   if (user != null){
     console.log("List Jobs for User: " + user.uid)
-    var keys = myjobs("uid",user.uid)
-    console.log(keys);
-     return res.render('jobs/myjobs',{
-       title: 'My Jobs',
-       data: JSON.stringify(keys)
-     });
-     
-
+    myjobs(user.uid)
+    
   }
  
-      function myjobs(searchOn, searchByVal)
+      function myjobs(searchByVal)
       {
-        var val
+       
+        var x = firebaseAdmin.database().ref("jobs/postings/").orderByChild("uid").equalTo(searchByVal).
+                                                                      on("value", function(snapshot) { 
+        //a = snapshot.toJSON();
+        var keyid = [];
+        var jobCollection = [];
+        snapshot.forEach(function(item) {
+          var itemKey = item.key;
+          keyid.push(itemKey);
 
-        var jobSnapshot = fireBaseJob.orderByChild(searchOn).equalTo(searchByVal).on("child_added", function(snapshot) {
-        console.log('snapshot ' + snapshot.key);
-        
+          var jobJson = item.toJSON();
+          jobCollection.push(jobJson);
+        });
+        console.log(keyid)
+        console.log(jobCollection)
+        //render view
+        return res.render('jobs/myjobs',{
+        title: 'My Jobs',
+        keys: keyid,
+        data: jobCollection       
+        });
       });
-
       
-
       }
 }
