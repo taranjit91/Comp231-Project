@@ -20,4 +20,15 @@ jobsController.displayJobs(req,res,next);
 
 });
 
+/* GET Search page. */
+router.get('/search', (req, res, next) => {
+  res.render('jobs/search', { 
+    title: 'Edit Profile'
+  });
+});
+
+router.post('/search', (req,res,next)=> {
+jobsController.searchJobs(req,res,next,req.body.searchKeys);
+});
+
 module.exports = router;

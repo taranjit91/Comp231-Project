@@ -49,7 +49,7 @@ module.exports.displayJobs = (req,res,next) => {
     console.log("List Jobs for User: " + user.uid)
     var keys = myjobs("uid",user.uid)
     console.log(keys);
-     return res.render('jobs/myjobs',{
+     return res.render('jobs/jobsList',{
        title: 'My Jobs',
        data: JSON.stringify(keys)
      });
@@ -70,3 +70,22 @@ module.exports.displayJobs = (req,res,next) => {
 
       }
 }
+
+module.exports.searchJobs = (req,res,next,keys) => {
+
+
+var newArray = [];
+// Attach an asynchronous callback to read the data at our posts reference
+fireBaseJob.on("value", function(snapshot) {  
+  newArray.push(snapshot.val());
+  console.log(snapshot.val());
+
+
+
+}, function (errorObject) {
+  console.log("The read failed: " + errorObject.code);
+});
+
+    
+}
+

@@ -173,3 +173,23 @@ article[role="manufacturer"] ul li i {
     width: 50%;
   }
 }
+
+/*********************************** NAVIGATION BAR STYLE**************************
+
+*/
+
+.navbar-default {
+    background:#B4D001 !important;
+   }
+.navbar-default .navbar-nav>li>a:hover {
+    color: white !important;
+    background-color: #419641 !important;
+}
+.navbar-default .navbar-nav>li>a
+{
+  color: white !important;
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: #B4D001 !important;
+    
+}

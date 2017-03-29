@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> <%= title %> </title>
+    <!-- CSS SECTION -->
+    
+     <link rel='stylesheet' href='../Content/style.css' type="text/css"/>
+    <link rel="stylesheet" href="/Scripts/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Scripts/lib/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/Scripts/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+   
+  </head>
+  <body>
+
+  <nav class="navbar navbar-default" role="navigation"  >
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/" style="color: white; font-weight:bolder;">
+      <i class="fa fa-user-o"></i>  CentEngage</a>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+          <% if(title == "login") { %>
+          <li>
+          <a  href="/registermember"><i class="fa fa-user-md fa-lg"></i> Register</a>
+          </li> 
+          <li class="active" >
+          <a  href="/login"><i class="fa fa-sign-in fa-lg"></i> Login</a>
+          </li>
+        <% } else if(title == "register") {%>
+            <li class="active">
+          <a  href="/registermember"><i class="fa fa-user-md fa-lg"></i> Register</a>
+          </li>   
+          <li  >
+          <a  href="/login"><i class="fa fa-sign-in fa-lg"></i> Login</a>
+          </li>
+       <% }%>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </nav>
