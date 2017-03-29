@@ -1,0 +1,112 @@
+<html>
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" Content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+<link rel='stylesheet' href='/Scripts/lib/bootstrap/dist/css/bootstrap.min.css' />
+<link rel='stylesheet' href='/Scripts/lib/bootstrap/dist/css/bootstrap-theme.css' />
+<link rel='stylesheet' href='/Content/style.css' />
+
+ 
+</head>
+<body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<table>
+
+    <tr>
+            <td>
+                <div>
+                <label>Job Title:</label>       
+                </div>
+            </td>
+            <td> <%=jobData.title %>
+            </td>
+    <tr>
+
+    <tr>
+            <td>
+                <div>
+                <label>Company:</label>       
+                </div>
+            </td>
+            <td> <%= jobData.company  %>
+            </td>
+    <tr>
+
+    <tr>
+            <td>
+                <div>
+                <label>Company Address:</label>       
+                </div>
+            </td>
+            <td> <%=jobData.company_address  %>
+            </td>
+    <tr>
+
+    <tr>
+            <td>
+                <div>
+                <label>Job Location:</label>       
+                </div>
+            </td>
+            <td> <%=jobData.location%>
+            </td>
+    <tr>
+
+    <tr>
+            <td>
+                <div>
+                <label>Salary:</label>       
+                </div>
+            </td>
+            <td> <%=jobData.salary  %>
+            </td>
+    <tr>
+
+    <tr>
+            <td>
+                <div>
+                <label>Tags:</label>       
+                </div>
+            </td>
+            <td> <%=jobData.tags %>
+            </td>
+    <tr>
+
+    <tr>
+            <td>
+                <div>
+                <label>Type:</label>       
+                </div>
+            </td>
+            <td> <%=jobData.job_type  %>
+            </td>
+    <tr>
+
+    <tr>
+            <td>
+                <div>
+                <label>Description:</label>       
+                </div>
+            </td>
+            <td> <%=jobData.job_description  %>
+            </td>
+    <tr>
+
+    <tr>
+            <td>
+                <div>
+                <label>Created by:</label>       
+                </div>
+            </td>
+            <td> <%=name%>
+            </td>
+    <tr>
+	
+<Script src="/Scripts/lib/jquery/dist/jquery.min.js"></Script>
+<Script src="/Scripts/lib/jquery/dist/jquery.js"></Script>
+<Script src="/Scripts/lib/bootstrap/dist/js/bootstrap.min.js"></Script>
+<Script src="/Scripts/app.js"></Script>
+</body>
+</html>

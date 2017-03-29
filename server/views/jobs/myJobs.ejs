@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" Content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+<link rel='stylesheet' href='/Scripts/lib/bootstrap/dist/css/bootstrap.min.css' />
+<link rel='stylesheet' href='/Scripts/lib/bootstrap/dist/css/bootstrap-theme.css' />
+<link rel='stylesheet' href='/Content/style.css' />
+
+ 
+</head>
+<body>
+
+<table align="center" >
+	  <tr>
+            <td>
+                <div>
+                <label>Job ID:</label>       
+                </div>
+            </td>
+            <td>
+                <div>
+                <label>Company:</label>               
+                </div>
+            </td>
+            <td>
+                <div>
+                <label>Job Description:</label>                
+                </div>
+            </td>
+            <td>
+                <div>
+                <label>Job Location:</label>
+                </div>
+            </td>           
+        </tr>
+	<%  var counter = 0;
+      data.forEach(function(Item){ 
+        
+    
+    %>
+		<form method = "post" action="/jobs/editjob">
+		<tr>
+            <td>
+                <div>
+                <input type="text" name="id" value="<%= keys[counter] %>"/>
+                <%counter = counter +1%>
+                </div>
+            </td>
+            <td>
+                <div>              
+                <input type="text" name="itemName" value="<%= Item.company %>"/>                
+                </div>
+            </td>
+            <td>
+                <div>               
+                <input type="text" name="price" value="<%= Item.job_description %>"/>                
+                </div>
+            </td>
+            <td>
+                <div>                
+                <input type="text" name="quantity" value="<%= Item.location %>" />                
+                </div>
+            </td>			
+            <td>
+				<div>				                
+                <input type="submit" value="Update Item" style="width: 200px"/>				
+				</div>
+            </td>
+        </tr>
+		</form>
+    
+	<% })  %>
+
+
+
+
+<Script src="/Scripts/lib/jquery/dist/jquery.min.js"></Script>
+<Script src="/Scripts/lib/jquery/dist/jquery.js"></Script>
+<Script src="/Scripts/lib/bootstrap/dist/js/bootstrap.min.js"></Script>
+<Script src="/Scripts/app.js"></Script>
+</body>
+</html>
