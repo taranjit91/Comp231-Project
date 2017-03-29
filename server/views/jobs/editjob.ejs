@@ -1,0 +1,79 @@
+<html>
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" Content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+<link rel='stylesheet' href='/Scripts/lib/bootstrap/dist/css/bootstrap.min.css' />
+<link rel='stylesheet' href='/Scripts/lib/bootstrap/dist/css/bootstrap-theme.css' />
+<link rel='stylesheet' href='/Content/style.css' />
+
+ 
+</head>
+<body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<div class="container">
+	<div class="Form">
+		<form id="postjob"class="signup" action="/jobs/savejob" method="post">
+      <input type="text" hidden value="<%=jobId%>" name="jobId">
+                <div class="form-group">
+				Job Title:
+                  <input type="text" class="form-control" value="<%=jobData.title%>" name="jobTitle">
+                </div>
+                <div class="form-group">
+				Company:
+                  <input type="text" class="form-control" value=<%=jobData.company%> name="companyName">
+                </div>
+				<div class="form-group">
+				Company Address:
+                  <input type="text" class="form-control" value="<%=jobData.company_address%>" name="companyAddress">
+                </div>
+                <div class="form-group">
+				Job Location:
+                  <input type="text" class="form-control" value="<%=jobData.location%>" name="jobLocation">
+                </div>
+				<div class="form-group">
+				Salary:
+                  <input type="text" class="form-control" value="<%=jobData.salary%>" name="jobSalary">
+                </div>
+
+				<div class="form-group">
+				Tags:
+                  <input type="text" class="form-control" value="<%=jobData.tags%>" name="tags">
+                </div>
+
+       <div class="form-group">
+				Type:
+                  <input type="radio"   name="jobType" value="FullTime" 
+                    <% 
+                    if(jobData.job_type == "FullTime"){%>
+                        checked
+                    <% } %>
+                  
+                  >Full Time
+				          <input type="radio"   name="jobType" value="PartTime"
+                    <% 
+                      if(jobData.job_type == "PartTime"){%>
+                          checked
+                    <% } %>
+                  
+                  >Part Time
+        </div>
+        <div class="form-group">
+				Job Description:  <input type="text" class="form-control" value="<%=jobData.job_description%>" name="jobDescription">
+        </div>
+				
+                <div class="form-group">
+                  <input type="submit" class="btn btn-success btn-block"  value="Save Changes">
+                </div>
+              </form>
+	
+	</div>
+    
+</div>
+	
+<Script src="/Scripts/lib/jquery/dist/jquery.min.js"></Script>
+<Script src="/Scripts/lib/jquery/dist/jquery.js"></Script>
+<Script src="/Scripts/lib/bootstrap/dist/js/bootstrap.min.js"></Script>
+<Script src="/Scripts/app.js"></Script>
+</body>
+</html>
