@@ -47,18 +47,24 @@ module.exports.ProcessPostJob = (req,res,next) => {
     return res.redirect("/jobs/"+getNewJobID())
     
     }
+
+    function getNewJobID(){
+    var id;
+    firebaseAdmin.database().ref("jobs/postings/").on("child_added",function(snapshot){
+      id = snapshot.key;
+    })
+    return id;
+    } 
+
 }
 
 module.exports.myJobs = (req,res,next) => {
   //hardcoded login for testing
-  firebaseAuth.signInWithEmailAndPassword("mchua@cencol.ca", "test123")    
+  //firebaseAuth.signInWithEmailAndPassword("mchua@cencol.ca", "test123")    
   var user = firebaseAuth.currentUser;
   if (user != null){
     console.log("List Jobs for User: " + user.uid)
-
     viewmyjobs(user.uid)
-    
-
   }
  
       function viewmyjobs(searchByVal)
@@ -146,28 +152,58 @@ module.exports.displayJob = (req,res,next) => {
       return displayDetails;
 
   })  
+
+      function processJobDisplay(data,jobID,res){
+      console.log("Process Job " + data)
+      var name = "";
+      firebaseAdmin.database().ref("users/personal/"+data.uid).once('value', function(snap) {
+      name = snap.child('firstname').val()+' '+ snap.child('lastname').val();
+      console.log("In Get User " + name)
+      return res.render('jobs/viewjob',{
+              title: 'View Job Posting',
+              jobId: jobID,
+              jobData: data,
+              name: data.uid
+          });  
+      });
+      
+  }
 }
 
-function processJobDisplay(data,jobID,res){
-  console.log("Process Job " + data.uid)
-  var name = "";
-  firebaseAdmin.database().ref("users/personal/"+data.uid).once('value', function(snap) {
-  name = snap.child('firstname').val()+' '+ snap.child('lastname').val();
-  console.log("In Get User " + name)
-  return res.render('jobs/viewjob',{
-            title: 'View Job Posting',
-            jobId: jobID,
-            jobData: data,
-            name: name
-        });
-  });
+module.exports.deleteJob = (req,res,next) => {
+
+    console.log(req.body)
+    firebaseAdmin.database().ref("jobs/postings/"+req.body.id).on("value", function(snapshot){
+      var data = snapshot.toJSON()
+      console.log(data)
+
+      //render view
+      return res.render('jobs/confirmDelete',{
+          title: 'Delete this job',
+          jobData: data,
+          jobId: req.body.id
+      });
+  })  
+}
+
+module.exports.confirmedDelete = (req,res,next) => {
+    console.log(req.body)
+    firebaseAdmin.database().ref("jobs/postings/"+req.body.id).remove(), function(error){
+              if (error) {
+                console.log("Data could not be deleted." + error);
+              } else {
+                console.log("Data deleted.");
+              };
+            }
+
+            return res.send("delete good")
+}
+
+
+module.exports.renderSearch = (req,res,next) => {
+    return res.render('jobs/search')
     
 }
- getNewJobID = () => {
-    var id;
-    firebaseAdmin.database().ref("jobs/postings/").on("child_added",function(snapshot){
-      id = snapshot.key;
-    })
-    return id;
-} 
+
+
 

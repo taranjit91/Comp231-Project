@@ -43,28 +43,33 @@
 		<tr>
             <td>
                 <div>
-                <input type="text" name="id" value="<%= keys[counter] %>"/>
+                <input type="text" name="id" value="<%= keys[counter] %>" readonly/>
                 <%counter = counter +1%>
                 </div>
             </td>
             <td>
                 <div>              
-                <input type="text" name="itemName" value="<%= Item.company %>"/>                
+                <input type="text" name="itemName" value="<%= Item.company %>" readonly/>                
                 </div>
             </td>
             <td>
                 <div>               
-                <input type="text" name="price" value="<%= Item.job_description %>"/>                
+                <input type="text" name="price" value="<%= Item.job_description %>" readonly/>                
                 </div>
             </td>
             <td>
                 <div>                
-                <input type="text" name="quantity" value="<%= Item.location %>" />                
+                <input type="text" name="quantity" value="<%= Item.location %>"  readonly/>                
                 </div>
             </td>			
             <td>
 				<div>				                
-                <input type="submit" value="Update Item" style="width: 200px"/>				
+                <input type="submit" value="Update Job" style="width: 200px"/>				
+				</div>
+            </td>
+            <td>
+				<div>				                
+                <input type="submit" value="Delete Job" formaction = "/jobs/deletejob" style="width: 200px"/>				
 				</div>
             </td>
         </tr>
