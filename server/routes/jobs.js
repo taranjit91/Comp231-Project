@@ -19,9 +19,6 @@ router.get('/myJobs', (req, res, next) => {
     jobsController.myJobs(req,res,next);
 });
 
-router.post('/myJobs', (req, res, next) => {
-    jobsController.myJobs(req,res,next);
-});
 
 router.post('/editjob', (req, res, next) => {
     jobsController.editJob(req,res,next);

@@ -50,7 +50,7 @@ module.exports.ProcessPostJob = (req,res,next) => {
 
     function getNewJobID(){
     var id;
-    firebaseAdmin.database().ref("jobs/postings/").on("child_added",function(snapshot){
+    firebaseAdmin.database().ref("jobs/postings/").once("child_added",function(snapshot){
       id = snapshot.key;
     })
     return id;
@@ -71,7 +71,7 @@ module.exports.myJobs = (req,res,next) => {
       {
        
         var x = firebaseAdmin.database().ref("jobs/postings/").orderByChild("uid").equalTo(searchByVal).
-                                                                      on("value", function(snapshot) { 
+                                                                      once("value", function(snapshot) { 
         var keyid = [];
         var jobCollection = [];
         snapshot.forEach(function(item) {
@@ -96,7 +96,7 @@ module.exports.myJobs = (req,res,next) => {
 module.exports.editJob = (req,res,next) => {
 
   var id = req.body.id;
-  firebaseAdmin.database().ref("jobs/postings/"+id).on("value", function(snapshot){
+  firebaseAdmin.database().ref("jobs/postings/"+id).once("value", function(snapshot){
       var data = snapshot.toJSON()
       console.log(data)
 
@@ -111,69 +111,79 @@ module.exports.editJob = (req,res,next) => {
 
 module.exports.saveJob = (req,res,next) => {
 
-  var job = req.body
-  var user = firebaseAuth.currentUser;
+  var job = req.body  
   console.log(job)
-  updateJobPosting(job.jobId, job.jobTitle, job.companyName, job.companyAddress, job.jobDescription, job.jobType, job.jobLocation, job.jobSalary, job.tags);
-
-  return res.redirect('/jobs/'+job.jobId)
-
-
-  function updateJobPosting(postingid,title,company,company_address, job_description,job_type,location,salary,tags)
-      {
-      var jobsRef = firebaseAdmin.database().ref("jobs/postings/"+postingid)
-      jobsRef.update({
-            title: title,
-            company: company,
-            company_address:company_address,
-            job_description: job_description,
-            job_type: job_type,
-            location: location,
-            salary: salary,
-            tags: tags   
-        }), function(error) {
-        if (error != null ) {
-          console.log("Data could not be saved." + error);
-        } else {
-          console.log("Data saved successfully.");
-        };
-      }
-      }
+  updateJobPosting(job.jobId, job.jobTitle, job.companyName, job.companyAddress, job.jobDescription, job.jobType, job.jobLocation, job.jobSalary, job.tags,req,res,next);
+  
 }
+
+function updateJobPosting(postingid,title,company,company_address, 
+                          job_description,job_type,location,salary,tags,req,res,next)
+      {
+          var onComplete = function(error) {
+                if (error) {
+                  console.log('Synchronization failed');
+                } else {
+                  console.log('Synchronization succeeded');
+                  res.redirect('/jobs/'+postingid)
+                }
+              };
+
+         firebaseAdmin.database().ref("jobs/postings/"+postingid).update({
+              title: title,
+              company: company,
+              company_address:company_address,
+              job_description: job_description,
+              job_type: job_type,
+              location: location,
+              salary: salary,
+              tags: tags   
+              }, onComplete)
+          
+      }
 
 
 module.exports.displayJob = (req,res,next) => {
 
-      firebaseAdmin.database().ref("jobs/postings/"+req.params.id).on("value", function(snapshot){
+      console.log("display the posting details")
+      firebaseAdmin.database().ref("jobs/postings/"+req.params.id).once("value", function(snapshot){
+      
       var data = snapshot.toJSON()
-      console.log(data)
-      //Get Member UID
-      var displayDetails = processJobDisplay(data,req.params.id,res);
-      return displayDetails;
+      //var name = getCreatedby(data.uid);
+      //return processJobDisplay(data,req.params.id,req,res,next);
+      return res.render('jobs/viewjob',{
+              title: 'View Job Posting',
+              jobId: req.params.id,
+              jobData: data,
+              name: data.uid
+        }) 
+      })  
 
-  })  
+      
+}
 
-      function processJobDisplay(data,jobID,res){
-      console.log("Process Job " + data)
-      var name = "";
-      firebaseAdmin.database().ref("users/personal/"+data.uid).once('value', function(snap) {
-      name = snap.child('firstname').val()+' '+ snap.child('lastname').val();
-      console.log("In Get User " + name)
+function getCreatedby(uid) {
+        var name;
+        firebaseAdmin.database().ref("users/personal/"+uid).once('value', function(snap) {
+          name = snap.child('firstname').val()+' '+ snap.child('lastname').val()
+          console.log(name)
+        })
+        console.log("In Get User " + name)
+        return name
+      }
+
+function processJobDisplay(data,jobID,req,res,next){
       return res.render('jobs/viewjob',{
               title: 'View Job Posting',
               jobId: jobID,
               jobData: data,
               name: data.uid
-          });  
-      });
+        });
+      }
       
-  }
-}
-
 module.exports.deleteJob = (req,res,next) => {
-
     console.log(req.body)
-    firebaseAdmin.database().ref("jobs/postings/"+req.body.id).on("value", function(snapshot){
+    firebaseAdmin.database().ref("jobs/postings/"+req.body.id).once("value", function(snapshot){
       var data = snapshot.toJSON()
       console.log(data)
 
@@ -187,7 +197,7 @@ module.exports.deleteJob = (req,res,next) => {
 }
 
 module.exports.confirmedDelete = (req,res,next) => {
-    console.log(req.body)
+    //console.log(req.body)
     firebaseAdmin.database().ref("jobs/postings/"+req.body.id).remove(), function(error){
               if (error) {
                 console.log("Data could not be deleted." + error);
