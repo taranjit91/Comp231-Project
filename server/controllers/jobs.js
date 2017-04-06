@@ -215,5 +215,30 @@ module.exports.renderSearch = (req,res,next) => {
     
 }
 
+module.exports.searchJobs = (req,res,next) => {
+    //res.send(req.body)
+    var field = req.body.field
+    var searchByVal = req.body.searchKeywords
+    var x = firebaseAdmin.database().ref("jobs/postings/").orderByChild(field).equalTo(searchByVal).
+                                                                      once("value", function(snapshot) { 
+        var keyid = [];
+        var jobCollection = [];
+        snapshot.forEach(function(item) {
+          var itemKey = item.key;
+          keyid.push(itemKey);
+
+          var jobJson = item.toJSON();
+          jobCollection.push(jobJson);
+        });
+
+        //render view
+        return res.render('jobs/myjobs',{
+        title: 'Search Results',
+        keys: keyid,
+        data: jobCollection       
+        });
+      });
+
+}
 
 
