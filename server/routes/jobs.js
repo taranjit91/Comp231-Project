@@ -44,7 +44,7 @@ router.get('/search', (req, res, next) => {
 });
 
 router.post('/search', (req,res,next)=> {
-    jobsController.searchJobs(req,res,next,req.body.searchKeys);
+    jobsController.searchJobs(req,res,next);
 });
 
 
