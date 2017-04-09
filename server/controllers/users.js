@@ -10,7 +10,9 @@ module.exports.DisplayLogin = (req, res, next) => {
   if(!req.user) {
     // render the login page
      res.render('auth/login', { 
-    title: 'Login'
+    title: 'Login',
+     username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
   });
     return;
   } else {
@@ -37,7 +39,9 @@ module.exports.ProcessLogin = (req,res,next) => {
     }
 
     return res.render('auth/login', {
-      title: 'Login'
+      title: 'Login',
+       username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+        userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
     });
   });
 }
@@ -56,13 +60,17 @@ module.exports.ProcessLogout = (req, res) => {
 module.exports.DisplayEditPage = (req,res,next) => {
       res.render('accounts/editProfile', { 
     title: 'Edit Profile',
-    uid:req.params.id
+    uid:req.params.id,
+     username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
   });
 }
 
 module.exports.displayMemberRegistrationPage = (req,res,next) => {
     return res.render('auth/registerMember', { 
-    title: 'Sugn Up'
+    title: 'Sugn Up',
+     username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
   });
 }
 
@@ -106,7 +114,9 @@ console.log("Data addition error: "+ error.message);
 
 module.exports.displayEmployerRegistrationPage = (req,res,next) => {
     return res.render('auth/registerEmployer', { 
-    title: 'Sugn Up'
+    title: 'Sugn Up',
+     username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
   });
 }
 

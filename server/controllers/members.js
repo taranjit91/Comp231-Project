@@ -25,7 +25,9 @@ firebase.firebaseDatabase.ref("users/personal/"+req.params.id).once('value', fun
     phone: "1234567890",
     currentStatus: "Student",
     profilePic: "/Assets/images/photo.png",
-    uid:firebaseAuth.currentUser.uid
+    uid:firebaseAuth.currentUser.uid,
+     username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
   });
 });
 }

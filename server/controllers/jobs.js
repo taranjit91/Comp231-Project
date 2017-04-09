@@ -8,7 +8,9 @@ let firebaseAuth = firebase.auth;
 module.exports.displayJobPostPage = (req,res,next) => {
      if (firebaseAuth.currentUser != null){
      return   res.render('jobs/postJob', { 
-          title: 'Post Job'
+          title: 'Post Job',
+           username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+            userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
         });
     }
     else{
@@ -86,7 +88,9 @@ module.exports.myJobs = (req,res,next) => {
         return res.render('jobs/myjobs',{
         title: 'My Jobs',
         keys: keyid,
-        data: jobCollection       
+        data: jobCollection,
+         username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : ''  ,
+          userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
         });
       });
       
@@ -104,7 +108,9 @@ module.exports.editJob = (req,res,next) => {
       return res.render('jobs/editjob',{
           title: 'My Jobs',
           jobData: data,
-          jobId: id
+          jobId: id,
+           username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+            userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
       });
   })  
 }
@@ -155,7 +161,9 @@ module.exports.displayJob = (req,res,next) => {
               title: 'View Job Posting',
               jobId: req.params.id,
               jobData: data,
-              name: data.uid
+              name: data.uid,
+               username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+                userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
         }) 
       })  
 
@@ -177,7 +185,9 @@ function processJobDisplay(data,jobID,req,res,next){
               title: 'View Job Posting',
               jobId: jobID,
               jobData: data,
-              name: data.uid
+              name: data.uid,
+               username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+                userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
         });
       }
       
@@ -191,7 +201,9 @@ module.exports.deleteJob = (req,res,next) => {
       return res.render('jobs/confirmDelete',{
           title: 'Delete this job',
           jobData: data,
-          jobId: req.body.id
+          jobId: req.body.id,
+           username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+            userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
       });
   })  
 }
@@ -211,7 +223,11 @@ module.exports.confirmedDelete = (req,res,next) => {
 
 
 module.exports.renderSearch = (req,res,next) => {
-    return res.render('jobs/search')
+    return res.render('jobs/search',{
+      title:'Search',
+       username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+        userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
+    })
     
 }
 
@@ -235,7 +251,9 @@ module.exports.searchJobs = (req,res,next) => {
         return res.render('jobs/myjobs',{
         title: 'Search Results',
         keys: keyid,
-        data: jobCollection       
+        data: jobCollection,
+         username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+          userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : '' 
         });
       });
 

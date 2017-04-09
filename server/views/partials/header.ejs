@@ -8,6 +8,7 @@
     <!-- CSS SECTION -->
     
      <link rel='stylesheet' href='../Content/style.css' type="text/css"/>
+     <link rel='stylesheet' href='../Content/small-business.css' type="text/css"/>
     <link rel="stylesheet" href="/Scripts/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Scripts/lib/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/Scripts/lib/font-awesome/css/font-awesome.min.css">
@@ -22,7 +23,7 @@
   </head>
   <body>
 
-  <nav class="navbar navbar-default" role="navigation"  >
+  <nav class="navbar navbar-default" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -31,32 +32,36 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/" style="color: white; font-weight:bolder;">
-      <i class="fa fa-user-o"></i>  CentEngage</a>
-      
+      <a class="navbar-brand" href="/">CentEngage</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav navbar-right">
-        
-          
-          <% if(title == "login") { %>
-          <li>
-          <a  href="/registermember"><i class="fa fa-user-md fa-lg"></i> Register</a>
-          </li> 
-          <li class="active" >
-          <a  href="/login"><i class="fa fa-sign-in fa-lg"></i> Login</a>
-          </li>
-        <% } else if(title == "register") {%>
-            <li class="active">
-          <a  href="/registermember"><i class="fa fa-user-md fa-lg"></i> Register</a>
-          </li>   
-          <li  >
-          <a  href="/login"><i class="fa fa-sign-in fa-lg"></i> Login</a>
-          </li>
-       <% }%>
 
+  
+
+
+        <% if(typeof username == 'string' && username) { %>
+            <li><a href="#">Welcome, <%= username %></a></li>
+            <li><a href="/member/<%= userid %>"> Profile </a></li>
+ 
+            <li><a href="/"><i class="fa fa-home fa-lg"></i> Home</a></li>
+            <li><a href="/users/logout">Log Out</a></li>
+            <% } else { %>
+            <li><a href="/"><i class="fa fa-home fa-lg"></i> Home</a></li>
+    <li><a href="/users/registerEmployer">Sign Up - Employer</a></li>
+         <li><a href="/users/registerMember">Sign up - Member</a></li>
+         <li><a href="/users/login">Login</a></li>
+            <% } %>
+         
+     
       </ul>
     </div><!-- /.navbar-collapse -->
   </nav>
+
+<% if(title == "Profile Information") { %>
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+</style>
+<% } %>
