@@ -58,13 +58,101 @@ module.exports.ProcessLogout = (req, res) => {
 }
 
 module.exports.DisplayEditPage = (req,res,next) => {
-      res.render('accounts/editProfile', { 
+
+//-----------------------------------------------------
+    if(firebaseAuth.currentUser)
+{
+
+
+var firstName = "";
+var lastName = ""
+var status = "";
+
+firebase.firebaseDatabase.ref("users/personal/"+req.params.id).once('value', function(snap) {
+ firstName = snap.child('firstname').val();
+ lastName = snap.child('lastname').val();
+status = snap.child('status').val();
+
+
+
+return res.render('accounts/editProfile', { 
     title: 'Edit Profile',
+    firstName:firstName,
+    lastName:lastName,
+    status:status,
     uid:req.params.id,
      username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
       userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
   });
+
+});
 }
+else
+{
+  return res.redirect('/users/login');
+}
+
+//-----------------------------------------------------
+
+      
+}
+
+module.exports.processMemberUpdate = (req,res,next) => {
+var user = req.body
+updateMemberAccount(user.firstName,user.lastName,user.status,user.password,req,res,next);
+
+}
+
+function updateMemberAccount(firstName,lastName,status,password,req,res,next)
+      {
+          var onComplete = function(error) {
+                if (error) {
+                  console.log('Account Update failed');
+                } else {
+                  console.log('Synchronization succeeded');
+                  res.redirect('/member/'+firebaseAuth.currentUser.uid);
+                }
+              };
+              
+              var updateMemberPassword = function(password) {
+                firebaseAuth.currentUser.updatePassword(password).then(function() {
+               // Update successful.
+               console.log("Password update successful")
+             }, function(error) {
+               // An error happened.
+               console.log("Password update failure: "+error);
+               });
+
+              }
+
+if(typeof password == "undefined") {
+              console.log("Password update not requested");
+              firebase.firebaseDatabase.ref("users/personal/"+firebaseAuth.currentUser.uid).update({
+              firstname: firstName,
+              lastname: lastName,
+              status:status,
+              }, onComplete)
+            }
+            else if(password=="") {
+              console.log("Null password");
+              firebase.firebaseDatabase.ref("users/personal/"+firebaseAuth.currentUser.uid).update({
+              firstname: firstName,
+              lastname: lastName,
+              status:status,
+              }, onComplete)
+            } 
+            else{
+              console.log("Password Update requested");
+              updateMemberPassword(password);
+              firebase.firebaseDatabase.ref("users/personal/"+firebaseAuth.currentUser.uid).update({
+              firstname: firstName,
+              lastname: lastName,
+              status:status,
+              }, onComplete)
+}
+        
+          
+      }
 
 module.exports.displayMemberRegistrationPage = (req,res,next) => {
     return res.render('auth/registerMember', { 

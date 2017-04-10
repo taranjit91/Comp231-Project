@@ -18,10 +18,15 @@ router.get('/logout', (req, res, next)=>{
   usersController.ProcessLogout(req, res);
 });
 
-/* GET home page. */
+
 router.get('/edit/:id', (req, res, next) => {
 usersController.DisplayEditPage(req,res,next);
 });
+
+router.post('/edit/:id', (req, res, next) => {
+usersController.processMemberUpdate(req,res,next);
+});
+
 
 router.get('/registerMember', (req, res, next) => {
   usersController.displayMemberRegistrationPage(req,res,next);
