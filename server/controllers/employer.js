@@ -24,6 +24,25 @@ firebase.firebaseDatabase.ref("users/employers/"+firebaseAuth.currentUser.uid).o
  number = snap.child('number').val();
  website = snap.child('website').val();
 
+ var postedKeyid = [];
+        var posteJobCollection = [];
+
+
+firebaseAdmin.database().ref("jobs/postings/").orderByChild("uid").equalTo(firebaseAuth.currentUser.uid).
+                                                                      once("value", function(snapshot) { 
+       
+        snapshot.forEach(function(item) {
+          var itemKey = item.key;
+          postedKeyid.push(itemKey);
+
+          var jobJson = item.toJSON();
+          posteJobCollection.push(jobJson);
+        });
+      });
+
+//--------------------------------
+setTimeout(renderIt,2000);
+function renderIt() {
   return res.render('accounts/employerProfile', { 
     title: 'Profile Information',
     companyName: companyName,
@@ -32,10 +51,20 @@ firebase.firebaseDatabase.ref("users/employers/"+firebaseAuth.currentUser.uid).o
     number:number,
     website:website,
     industry:industry,
+    postedKeyid:postedKeyid,
+    posteJobCollection:posteJobCollection,
      username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
-      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : '',
+      accType:req.session.accType
   });
+}
+
+
 });
+//-----------------------------
+
+
+
 }
 else
 {

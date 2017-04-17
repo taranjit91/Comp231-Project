@@ -78,7 +78,8 @@ function renderIt() {
     profilePic: "/Assets/images/photo.png",
     uid:firebaseAuth.currentUser.uid,
      username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
-      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : '',
+      accType:req.session.accType
   });
   }
 

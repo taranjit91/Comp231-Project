@@ -12,7 +12,8 @@ module.exports.DisplayLogin = (req, res, next) => {
      res.render('auth/login', { 
     title: 'Login',
      username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
-      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : '',
+      accType:req.session.accType
   });
     return;
   } else {
@@ -56,7 +57,8 @@ firebase.firebaseDatabase.ref("users/personal/"+firebaseAuth.currentUser.uid).on
     return res.render('users/login', {
       title: 'Login',
        username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
-        userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
+        userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : '',
+      accType:req.session.accType
     });
   });
 }
@@ -97,7 +99,8 @@ return res.render('accounts/editProfile', {
     status:status,
     uid:req.params.id,
      username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
-      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : '',
+      accType:req.session.accType
   });
 
 });
@@ -173,7 +176,8 @@ module.exports.displayMemberRegistrationPage = (req,res,next) => {
     return res.render('auth/registerMember', { 
     title: 'Sugn Up',
      username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
-      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : '',
+      accType:req.session.accType
   });
 }
 
@@ -219,7 +223,8 @@ module.exports.displayEmployerRegistrationPage = (req,res,next) => {
     return res.render('auth/registerEmployer', { 
     title: 'Sugn Up',
      username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
-      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : '',
+      accType:req.session.accType
   });
 }
 
@@ -335,7 +340,8 @@ return res.render('accounts/editEmployer', {
     webSite:webSite,
     uid:req.params.id,
      username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
-      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : '',
+      accType:req.session.accType
   });
 
 });
