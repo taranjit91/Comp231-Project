@@ -86,7 +86,7 @@ module.exports.myJobs = (req,res,next) => {
         });
 
         //render view
-        return res.render('jobs/myjobs',{
+        return res.render('jobs/myJobs',{
         title: 'My Jobs',
         keys: keyid,
         data: jobCollection,
