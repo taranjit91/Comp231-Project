@@ -35,11 +35,7 @@ firebaseAdmin.database().ref("jobs/postings/").orderByChild("uid").equalTo(fireb
           posteJobCollection.push(jobJson);
         });
 
-
-      });
-//-----------------------------------
-
-//---------------------------------------------------------- find all favourite jobs IDs of this member
+        //------------LEVEL 1-----------
 
 firebaseAdmin.database().ref("users/personal/"+firebaseAuth.currentUser.uid).
 once("value", function(snapshot) { 
@@ -52,12 +48,8 @@ once("value", function(snapshot) {
           })
         });
 
+        //-----------LEVEL 2-------------
 
-      });
-
-//------------------------------------------------------
-
-//------------------------------------------------------ fetch all job objects from the favourite job IDs
 console.log("Job from IDs")
 favouriteJobId.forEach(function(id){
 firebaseAdmin.database().ref("jobs/postings/"+id).once("value", function(snapshot) { 
@@ -71,11 +63,7 @@ console.log(jobJson)
 
 });
 
-
-//------------------------------------------------------
-
-
-
+//-----------RENDER-----------
   return res.render('accounts/candidateProfile', { 
     title: 'Profile Information',
     name: name,
@@ -90,6 +78,27 @@ console.log(jobJson)
      username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
       userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
   });
+
+      });
+
+      });
+//-----------------------------------
+
+//---------------------------------------------------------- find all favourite jobs IDs of this member
+
+
+
+//------------------------------------------------------
+
+//------------------------------------------------------ fetch all job objects from the favourite job IDs
+
+
+
+//------------------------------------------------------
+
+
+
+
 });
 }
 else

@@ -38,11 +38,11 @@
         <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Jobs you posted</h2>
         <div class="w3-container">
 
-        <ul>
+        <ul class="list-group">
           <% var counter=0;
           posteJobCollection.forEach(function(item) {  
             %>
-          <li>
+          <li class="list-group-item">
           
           <a href="/jobs/<%= postedKeyid[counter] %>"><%= item.title %></a>
           </li>
@@ -55,11 +55,11 @@
         <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Jobs you added to favourites</h2>
         <div class="w3-container">
 
-          <ul>
+          <ul class="list-group">
           <% var c=0;
           favouriteJobCollection.forEach(function(item) {  
             %>
-          <li>
+          <li class="list-group-item">
           
           <a href="/jobs/<%= favouriteJobId[c] %>"><%= item.title %></a>
           </li>
