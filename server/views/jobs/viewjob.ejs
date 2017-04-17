@@ -1,6 +1,10 @@
 <% include ../partials/header.ejs %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
+<% if(accType == "Member") { %>
+<a href="/jobs/addToFavourites/<%= jobId %>" >Add this job to your favourites </a>
+<% } %>
+
 <table>
 
     <tr>
@@ -93,4 +97,5 @@
             </td>
     <tr>
 	
+    </table>
 <% include ../partials/footer.ejs %>

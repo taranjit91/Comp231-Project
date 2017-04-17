@@ -52,5 +52,12 @@ router.get('/:id', (req, res, next) => {
     jobsController.displayJob(req,res,next);
 });
 
+router.post('/:id', (req, res, next) => {
+    jobsController.displayJob(req,res,next);
+});
+
+router.get('/addToFavourites/:id',(req, res, next) => {
+    jobsController.addToFavourites(req,res,next);
+});
 
 module.exports = router;

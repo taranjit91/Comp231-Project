@@ -151,7 +151,16 @@ function updateJobPosting(postingid,title,company,company_address,
 
 module.exports.displayJob = (req,res,next) => {
 
+var accType = ""
+  if(req.session.accType=="Member") {
+accType="Member"
+  } else {
+accType="Employer"
+  }
+
+
       console.log("display the posting details")
+      console.log("Account type "+accType)
       firebaseAdmin.database().ref("jobs/postings/"+req.params.id).once("value", function(snapshot){
       
       var data = snapshot.toJSON()
@@ -162,6 +171,7 @@ module.exports.displayJob = (req,res,next) => {
               jobId: req.params.id,
               jobData: data,
               name: data.uid,
+              accType:accType,
                username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
                 userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
         }) 
@@ -259,4 +269,26 @@ module.exports.searchJobs = (req,res,next) => {
 
 }
 
+module.exports.addToFavourites = (req,res,next) => {
+addJobToUserFavourites(req.params.id,req,res,next);
+}
+
+function addJobToUserFavourites(jobId,req,res,next)
+      {
+          var onComplete = function(error) {
+                if (error) {
+                  console.log(jobId + 'Failed while adding job to favourites');
+                } else {
+                  console.log('Job Added to user favourites');
+                  res.redirect('/jobs/myJobs');
+                }
+              };
+              
+         
+   firebase.firebaseDatabase.ref("users/personal/"+firebaseAuth.currentUser.uid).child("favourites").push({
+              jobId: jobId
+              }, onComplete)
+        
+          
+      }
 

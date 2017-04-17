@@ -50,7 +50,12 @@
                 <div>                
                 <input type="text" name="quantity" value="<%= Item.location %>"  readonly/>                
                 </div>
-            </td>			
+            </td>	
+            <td>
+				<div>				                
+                <input type="submit" value="View Job" formaction = "/jobs/<%= keys[counter] %>" style="width: 200px"/>				
+				</div>
+            </td>		
             <td>
 				<div>				                
                 <input type="submit" value="Update Job" style="width: 200px"/>				
