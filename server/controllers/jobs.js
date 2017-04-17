@@ -228,7 +228,7 @@ module.exports.confirmedDelete = (req,res,next) => {
               };
             }
 
-            return res.send("delete good")
+            return res.redirect("/jobs/myjobs")
 }
 
 
@@ -258,12 +258,12 @@ module.exports.searchJobs = (req,res,next) => {
         });
 
         //render view
-        return res.render('jobs/myjobs',{
+        return res.render('jobs/searchJob',{
         title: 'Search Results',
         keys: keyid,
         data: jobCollection,
-         username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
-          userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : '' 
+        username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+        userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : '' 
         });
       });
 
