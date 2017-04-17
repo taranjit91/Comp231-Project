@@ -1,0 +1,58 @@
+<% include ../partials/header.ejs %>
+
+<div class="container" style="padding-top: 60px;">
+  <h1 class="page-header">Edit Profile</h1>
+  <div class="row">
+
+    <!-- edit form column -->
+    <div class="col-md-12 col-sm-6 col-xs-12 personal-info">
+   
+      <h3>Account information</h3>
+      <form class="form-horizontal" method="post">
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Address:</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="<%= address %>" type="text" name="address">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Pone Number:</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="<%= number %>" type="text" name="number">
+          </div>
+        </div>
+
+          <div class="form-group">
+          <label class="col-lg-3 control-label">Website:</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="<%= webSite %>" type="text" name="webSite">
+          </div>
+        </div>
+        
+      
+        <div class="form-group">
+          <label class="col-md-3 control-label">Password:</label>
+          <div class="col-md-8">
+            <input class="form-control" value="" type="password" name="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Confirm password:</label>
+          <div class="col-md-8">
+            <input class="form-control" value="" type="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input class="btn btn-primary" value="Save Changes" type="submit">
+            <span></span>
+            <a href="/member/<%= userid %>" class="btn btn-default" value="Cancel" >
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer.ejs %>

@@ -27,6 +27,14 @@ router.post('/edit/:id', (req, res, next) => {
 usersController.processMemberUpdate(req,res,next);
 });
 
+router.get('/editEmp/:id', (req, res, next) => {
+usersController.DisplayEmployerEditPage(req,res,next);
+});
+
+router.post('/editEmp/:id', (req, res, next) => {
+usersController.processEmployerUpdate(req,res,next);
+});
+
 
 router.get('/registerMember', (req, res, next) => {
   usersController.displayMemberRegistrationPage(req,res,next);

@@ -25,20 +25,35 @@ module.exports.ProcessLogin = (req,res,next) => {
     let password = req.body.password;
       firebaseAuth.signInWithEmailAndPassword(email, password)
   .then(()=> {
-    console.log("signed in as member: " + firebaseAuth.currentUser.uid);
+
+var email = firebaseAuth.currentUser.email;
+firebase.firebaseDatabase.ref("users/personal/"+firebaseAuth.currentUser.uid).once('value', function(snap) { 
+  if(snap.child('email').val()==email) {
+    console.log("Logged in as Member");
+
+        req.session.accType = "Member";
     return res.redirect('/member/'+firebaseAuth.currentUser.uid);
+    //req.session.accountType=type;
+  }
+  else {
+    firebase.firebaseDatabase.ref("users/employers/"+firebaseAuth.currentUser.uid).once('value', function(secondSnap) { 
+     if(secondSnap.child('email').val()==email) {
+       console.log("Logged in as Employer");
+
+       //req.session.accountType=type;
+       req.session.accType = "Employer";
+       return res.redirect('/employer/'+firebaseAuth.currentUser.uid);
+     }
+    });
+  }
+});
+
+
   })
   .catch((err) =>{
-    let errorCode = err.code;
-    let errorMessage = err.message;
-    if(errorCode == 'auth/wrong-password') {
-      req.flash('loginMessage', 'Incorrect Password');
-    }
-    if(errorCode == 'auth/user-not-found') {
-      req.flash('loginMessage', 'Incorrect Username');
-    }
+    console.log(err);
 
-    return res.render('auth/login', {
+    return res.render('users/login', {
       title: 'Login',
        username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
         userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
@@ -295,3 +310,98 @@ console.log("Data addition error: "+ error.message);
 
    });
 }
+
+module.exports.DisplayEmployerEditPage = (req,res,next) => {
+//-----------------------------------------------------
+    if(firebaseAuth.currentUser)
+{
+
+
+var address = "";
+var number = "";
+var webSite = "";
+
+firebase.firebaseDatabase.ref("users/employers/"+req.params.id).once('value', function(snap) {
+ address = snap.child('address').val();
+ number = snap.child('number').val();
+webSite = snap.child('website').val();
+
+
+
+return res.render('accounts/editEmployer', { 
+    title: 'Edit Profile',
+    address:address,
+    number:number,
+    webSite:webSite,
+    uid:req.params.id,
+     username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
+      userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
+  });
+
+});
+}
+else
+{
+  return res.redirect('/users/login');
+}
+
+//-----------------------------------------------------
+
+
+}
+
+module.exports.processEmployerUpdate = (req,res,next) => {
+  var emp = req.body
+updateEmployerAccount(emp.address,emp.number,emp.webSite,emp.password,req,res,next);
+}
+
+function updateEmployerAccount(address,number,webSite,password,req,res,next)
+      {
+          var onComplete = function(error) {
+                if (error) {
+                  console.log('Account Update failed');
+                } else {
+                  console.log('Synchronization succeeded');
+                  res.redirect('/employer/'+firebaseAuth.currentUser.uid);
+                }
+              };
+              
+              var updateEmployerPassword = function(password) {
+                firebaseAuth.currentUser.updatePassword(password).then(function() {
+               // Update successful.
+               console.log("Password update successful")
+             }, function(error) {
+               // An error happened.
+               console.log("Password update failure: "+error);
+               });
+
+              }
+
+if(typeof password == "undefined") {
+              console.log("Password update not requested");
+              firebase.firebaseDatabase.ref("users/employers/"+firebaseAuth.currentUser.uid).update({
+              address: address,
+              number: number,
+              website:webSite,
+              }, onComplete)
+            }
+            else if(password=="") {
+              console.log("Null password");
+              firebase.firebaseDatabase.ref("users/employers/"+firebaseAuth.currentUser.uid).update({
+              address: address,
+              number: number,
+              website:webSite,
+              }, onComplete)
+            } 
+            else{
+              console.log("Password Update requested");
+              updateEmployerPassword(password);
+              firebase.firebaseDatabase.ref("users/employers/"+firebaseAuth.currentUser.uid).update({
+              address: address,
+              number: number,
+              website:webSite,
+              }, onComplete)
+}
+        
+          
+      }
