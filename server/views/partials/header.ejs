@@ -47,11 +47,13 @@
             <li><a href="/member/<%= userid %>"> Profile </a></li>
 
             <li><form method="post" action="/jobs/search">
-                
-                  <input type="text" class="form-control" name="searchKeywords" required autofocus/>
+                <div class="form-group" style="margin-top:7px;">
+                  <input class="form-control" type="text" class="form-control" name="searchKeywords" required autofocus/>
+                  </div>
             </li>
             <li>
-                  <select name="field">
+            <div class="form-group" style="margin-top:7px;">
+                  <select class="form-control" name="field">
                     <option selected disabled>Select Search Option</option>
                     <option value="title">Job Title</option>
                     <option value="company">Company</option>
@@ -59,9 +61,12 @@
                     <option value="tags">Tags</option>
                     <option value="job_description">Job Description</option>
                   </select>
+                  </div>
             </li>
             <li>
+            <div class="form-group" style="margin-top:7px;">
             <input type="submit" class="btn btn-success" value="Search"/>
+            </div>
             </form>
             </li>
             <li><a href="../jobs/postjob">Post a Job</a></li>
