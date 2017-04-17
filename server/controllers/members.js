@@ -4,6 +4,8 @@ let firebaseDB = firebase.members;
 let firebaseAdmin = firebase.admin;
 let firebaseAuth = firebase.auth;
 
+
+
 module.exports.displayMemberProfile = (req,res,next) => {
     if(firebaseAuth.currentUser)
 {
@@ -23,8 +25,21 @@ firebase.firebaseDatabase.ref("users/personal/"+req.params.id).once('value', fun
         var posteJobCollection = [];
 var favouriteJobId = [];
 var favouriteJobCollection = []
+
+setTimeout(getAllPostedJobs, 1500);  // STEP 1 find all jobs posted by this member
+
+setTimeout(findAllFavouriteJobIds, 1500); //STEP 2 find all favourite jobs' IDs from his favourites list
+
+setTimeout(getAllFavJobsFromIds, 1500); //STEP 3 Get all the job objects from those IDs
+
+setTimeout(renderIt, 1500);  // STEP 4 Render the page
+
+
+
+ function getAllPostedJobs() {
+
 //------------------------------------ find all jobs posted by this member
-firebaseAdmin.database().ref("jobs/postings/").orderByChild("uid").equalTo(firebaseAuth.currentUser.uid).
+ firebaseAdmin.database().ref("jobs/postings/").orderByChild("uid").equalTo(firebaseAuth.currentUser.uid).
                                                                       once("value", function(snapshot) { 
        
         snapshot.forEach(function(item) {
@@ -35,9 +50,11 @@ firebaseAdmin.database().ref("jobs/postings/").orderByChild("uid").equalTo(fireb
           posteJobCollection.push(jobJson);
         });
 
-        //------------LEVEL 1-----------
+      });
+}
 
-firebaseAdmin.database().ref("users/personal/"+firebaseAuth.currentUser.uid).
+function findAllFavouriteJobIds() {
+  firebaseAdmin.database().ref("users/personal/"+firebaseAuth.currentUser.uid).
 once("value", function(snapshot) { 
        
         console.log(snapshot.child('favourites').val())
@@ -48,10 +65,13 @@ once("value", function(snapshot) {
           })
         });
 
-        //-----------LEVEL 2-------------
 
-console.log("Job from IDs")
-favouriteJobId.forEach(function(id){
+     });
+}
+
+function getAllFavJobsFromIds() {
+  console.log("Job from IDs")
+ favouriteJobId.forEach(function(id){
 firebaseAdmin.database().ref("jobs/postings/"+id).once("value", function(snapshot) { 
        
         var jobJson = snapshot.toJSON();
@@ -62,8 +82,9 @@ console.log(jobJson)
       });
 
 });
+}
 
-//-----------RENDER-----------
+function renderIt() {
   return res.render('accounts/candidateProfile', { 
     title: 'Profile Information',
     name: name,
@@ -79,24 +100,7 @@ console.log(jobJson)
       userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
   });
 
-      });
-
-      });
-//-----------------------------------
-
-//---------------------------------------------------------- find all favourite jobs IDs of this member
-
-
-
-//------------------------------------------------------
-
-//------------------------------------------------------ fetch all job objects from the favourite job IDs
-
-
-
-//------------------------------------------------------
-
-
+}
 
 
 });
