@@ -63,7 +63,9 @@ console.log(jobJson)
 
 });
 
+setTimeout(renderIt,2000);
 //-----------RENDER-----------
+function renderIt() {
   return res.render('accounts/candidateProfile', { 
     title: 'Profile Information',
     name: name,
@@ -78,6 +80,7 @@ console.log(jobJson)
      username: firebaseAuth.currentUser? firebaseAuth.currentUser.email : '',
       userid: firebaseAuth.currentUser? firebaseAuth.currentUser.uid : ''
   });
+  }
 
       });
 
